@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+
+/* ----- Desktop Styles ----- */
+
+/* Overall plugin container */
+.menu-alacarte-container {
+    width: 90% !important;
+    max-width: 1200px !important;
+    margin: 0 auto;
+    padding: 20px !important;
+    background-color: #000 !important;
+}
+
+/* Navigation for menu categories */
+.menu-category-nav {
+    list-style: none !important;
+    margin: 20px 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 20px !important;
+}
+.menu-category-nav li {
+    margin: 5px 0 !important;
+    flex: 0 0 auto !important;
+    position: relative; /* Required for submenus */
+}
+.menu-category-nav a {
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    padding: 12px 24px !important;
+    background: #4a4a4a !important;
+    color: #B8A75D !important;
+    border-radius: 3px !important;
+    transition: background 0.3s !important;
+    font-family: 'Spectral', serif !important;
+    font-style: normal !important;
+    font-weight: 300 !important;
+}
+.menu-category-nav a:hover,
+.menu-category-nav a.active {
+    background: #B8A75D !important;
+    color: #fff !important;
+}
+
+/* ===== Submenu Styling ===== */
+/* Hide all nested .sub-menu by default */
+.menu-category-nav .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #4a4a4a;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 99;
+}
+.menu-category-nav .sub-menu li {
+    width: 100%;
+}
+.menu-category-nav .sub-menu li a {
+    display: block;
+    padding: 8px 16px;
+    color: #B8A75D;
+    text-decoration: none;
+    font-family: 'Spectral', serif;
+    font-weight: 300;
+    font-size: 0.9em;
+    transition: background 0.2s;
+}
+.menu-category-nav .sub-menu li a:hover {
+    background: #B8A75D;
+    color: #fff;
+}
+/* Show submenu on hover */
+.menu-category-nav li:hover > .sub-menu {
+    display: block;
+}
+/* Sub‐submenus appear to the right */
+.menu-category-nav .sub-menu .sub-menu {
+    top: 0;
+    left: 100%;
+}
+
+/* Category items */
+.menu-category-items {
+    display: none !important;
+    position: relative !important;
+}
+.menu-category-items.active {
+    display: block !important;
+}
+
+/* Each dish (menu item) container */
+.menu-alacarte-item {
+    padding: 10px !important;
+    border-bottom: 1px solid #ccc !important;
+    margin-bottom: 10px !important;
+    opacity: 1 !important;
+}
+
+/* Alternating backgrounds */
+.menu-alacarte-container .menu-alacarte-item:nth-child(odd) {
+    background-color: #000 !important;
+}
+.menu-alacarte-container .menu-alacarte-item:nth-child(even) {
+    background-color: #555 !important;
+}
+
+/* Flex container for each dish */
+.dish-container {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+}
+/* Odd: image on right; Even: image on left */
+.menu-alacarte-item:nth-child(odd) .dish-container {
+    flex-direction: row-reverse !important;
+}
+.menu-alacarte-item:nth-child(even) .dish-container {
+    flex-direction: row !important;
+}
+
+/* Dish illustration container (Desktop) */
+.dish-illustration {
+    width: 500px !important;
+    height: 500px !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+}
+.dish-illustration img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+/* Dish details container (Desktop) */
+.dish-details {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+/* Text styling for dish title */
+.menu-alacarte-item h3 {
+    font-family: 'Spectral', serif !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    color: #B8A75D !important;
+}
+
+/* Optional dish names */
+.dish-name-sk,
+.dish-name-en {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    font-size: 1.2em !important;
+}
+
+/* Details (measurement, price, allergens) */
+.menu-alacarte-item .menu-details {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-style: italic !important;
+    font-weight: 300 !important;
+    color: #B8A75D !important;
+    font-size: 1.2em !important;
+}
+
+/* Allergens button */
+.allergens-button {
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    padding: 10px 20px !important;
+    background: #4a4a4a !important;
+    color: #B8A75D !important;
+    border: none !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    transition: background 0.3s !important;
+    margin-top: 10px !important;
+}
+.allergens-button:hover {
+    background: #B8A75D !important;
+    color: #fff !important;
+}
+.allergens-list {
+    display: none !important;
+    padding: 10px !important;
+    background: #555 !important;
+    color: #B8A75D !important;
+    margin-top: 5px !important;
+    border-radius: 3px !important;
+}
+
+/* ----- Mobile Overrides (max-width: 768px) ----- */
+@media only screen and (max-width: 768px) {
+    /* Full‐width each item */
+    .menu-alacarte-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+    }
+
+    /* Stack dish container vertically */
+    .menu-alacarte-item .dish-container {
+        display: block !important;
+    }
+
+    /* Full-width dish illustration & details */
+    .menu-alacarte-item .dish-illustration,
+    .menu-alacarte-item .dish-details {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 20px auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Responsive images */
+    .menu-alacarte-item .dish-illustration img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+}
+
+/* ===== Submenu Styling ===== */
+/* Hide all nested .sub-menu by default */
+.menu-category-nav .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #4a4a4a;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 99;
+}
+.menu-category-nav .sub-menu li {
+    width: 100%;
+}
+.menu-category-nav .sub-menu li a {
+    display: block;
+    padding: 8px 16px;
+    color: #B8A75D;
+    text-decoration: none;
+    font-family: 'Spectral', serif;
+    font-weight: 300;
+    font-size: 0.9em;
+    transition: background 0.2s;
+}
+.menu-category-nav .sub-menu li a:hover {
+    background: #B8A75D;
+    color: #fff;
+}
+/* Show submenu on hover */
+.menu-category-nav li:hover > .sub-menu {
+    display: block;
+}
+
+/* Submenu of submenu (sub‐submenus) */
+/* On desktop, open to the right */
+.menu-category-nav .sub-menu .sub-menu {
+    top: 0;
+    left: 100%;
+}
+
+/* On mobile (≤768px), open sub‐submenus to the left */
+@media only screen and (max-width: 768px) {
+    .menu-category-nav .sub-menu .sub-menu {
+        left: auto;
+        right: 100%;
+    }
+}

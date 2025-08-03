@@ -1,0 +1,10 @@
+/* Styles for the admin meta box form */
+#mlac_menu_meta label {
+    display: block;
+    margin-top: 10px;
+}
+#mlac_menu_meta input[type="text"],
+#mlac_menu_meta select {
+    width: 100%;
+    padding: 5px;
+}
