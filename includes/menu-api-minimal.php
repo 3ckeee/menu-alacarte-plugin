@@ -1,5 +1,6 @@
-<?php 
- // Prevent direct access
+<?php
+
+// Prevent direct access
      if (!defined('ABSPATH')) {
          exit;
      }
@@ -27,12 +28,12 @@
      function menu_alacarte_minimal_meta_fields() {
          // Register meta fields that might exist in your current setup
          $possible_meta_fields = [
-             'dish_name_slovak',
-             'dish_name_english',
-             'measurement_type',
-             'measurement_value',
-             'price',
-             'allergens',
+             'dish_name_slovak', 'dish_name_sk', 'name_slovak', 'name_sk', 'slovak_name',
+             'dish_name_english', 'dish_name_en', 'name_english', 'name_en', 'english_name',
+             'measurement_type', 'measurement', 'portion', 'weight_type',
+             'measurement_value', 'weight', 'portion_size', 'weight_value', 'size',
+             'price', 'cost', 'price_value',
+             'allergens', 'allergen', 'allergies',
              // Add any other meta fields your plugin currently uses
          ];
 
@@ -90,6 +91,13 @@
              'callback' => 'menu_alacarte_get_all_categories',
              'permission_callback' => '__return_true',
          ));
+
+         // Debug endpoint to understand what's actually in the database
+         register_rest_route('menu-alacarte/v1', '/debug', array(
+             'methods' => 'GET',
+             'callback' => 'menu_alacarte_debug_info',
+             'permission_callback' => '__return_true',
+         ));
      }
 
      // Get all menu items with full data
@@ -113,18 +121,46 @@
                  }, $categories);
              }
 
+             // Get ALL meta data for debugging
+             $all_meta = get_post_meta($item->ID);
+
+             // Try different possible field name variations
+             $possible_names = array(
+                 'dish_name_slovak', 'dish_name_sk', 'name_slovak', 'name_sk', 'slovak_name',
+                 'dish_name_english', 'dish_name_en', 'name_english', 'name_en', 'english_name',
+                 'measurement_type', 'measurement', 'portion', 'weight_type',
+                 'measurement_value', 'weight', 'portion_size', 'weight_value', 'size',
+                 'price', 'cost', 'price_value',
+                 'allergens', 'allergen', 'allergies'
+             );
+
+             $found_fields = array();
+             foreach ($possible_names as $possible_name) {
+                 $value = get_post_meta($item->ID, $possible_name, true);
+                 if (!empty($value)) {
+                     $found_fields[$possible_name] = $value;
+                 }
+             }
+
              $formatted_items[] = array(
                  'id' => $item->ID,
                  'title' => array('rendered' => $item->post_title),
                  'content' => array('rendered' => apply_filters('the_content', $item->post_content)),
                  'featured_image_url' => get_the_post_thumbnail_url($item->ID, 'medium'),
                  'menu_categories' => $category_ids,
+
+                 // Standard expected fields
                  'dish_name_slovak' => get_post_meta($item->ID, 'dish_name_slovak', true),
                  'dish_name_english' => get_post_meta($item->ID, 'dish_name_english', true),
                  'measurement_type' => get_post_meta($item->ID, 'measurement_type', true),
                  'measurement_value' => get_post_meta($item->ID, 'measurement_value', true),
                  'price' => get_post_meta($item->ID, 'price', true),
                  'allergens' => get_post_meta($item->ID, 'allergens', true),
+
+                 // Debug information
+                 'debug_all_meta_keys' => array_keys($all_meta),
+                 'debug_found_fields' => $found_fields,
+                 'debug_all_meta_sample' => array_slice($all_meta, 0, 10, true), // First 10 meta fields
              );
          }
 
@@ -169,6 +205,64 @@
              header('Access-Control-Allow-Headers: Content-Type, Authorization');
              return $value;
          });
+     }
+
+     // Debug function to understand the database structure
+     function menu_alacarte_debug_info($request) {
+         global $wpdb;
+
+         // Check if post type exists
+         $post_types = get_post_types(array('public' => true), 'names');
+         $menu_post_type_exists = post_type_exists('menu_alacarte');
+
+         // Check if taxonomy exists
+         $taxonomies = get_taxonomies(array('public' => true), 'names');
+         $menu_taxonomy_exists = taxonomy_exists('menu_category');
+
+         // Get sample posts
+         $sample_posts = get_posts(array(
+             'post_type' => 'menu_alacarte',
+             'numberposts' => 3,
+             'post_status' => 'any'
+         ));
+
+         $posts_info = array();
+         foreach ($sample_posts as $post) {
+             $all_meta = get_post_meta($post->ID);
+             $posts_info[] = array(
+                 'id' => $post->ID,
+                 'title' => $post->post_title,
+                 'status' => $post->post_status,
+                 'meta_keys' => array_keys($all_meta),
+                 'meta_values_sample' => array_map(function($meta_array) {
+                     return is_array($meta_array) && count($meta_array) > 0 ? $meta_array[0] : $meta_array;
+                 }, array_slice($all_meta, 0, 5, true))
+             );
+         }
+
+         // Get sample categories
+         $sample_categories = get_terms(array(
+             'taxonomy' => 'menu_category',
+             'number' => 5,
+             'hide_empty' => false
+         ));
+
+         $debug_info = array(
+             'post_type_exists' => $menu_post_type_exists,
+             'taxonomy_exists' => $menu_taxonomy_exists,
+             'all_post_types' => array_keys($post_types),
+             'all_taxonomies' => array_keys($taxonomies),
+             'total_menu_items' => wp_count_posts('menu_alacarte'),
+             'sample_posts' => $posts_info,
+             'sample_categories' => !is_wp_error($sample_categories) ? $sample_categories : 'Error: ' . $sample_categories->get_error_message(),
+             'wordpress_info' => array(
+                 'wp_version' => get_bloginfo('version'),
+                 'site_url' => get_site_url(),
+                 'rest_url' => get_rest_url()
+             )
+         );
+
+         return rest_ensure_response($debug_info);
      }
 
      ?>
