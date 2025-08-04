@@ -20,7 +20,7 @@ require_once MLAC_PLUGIN_DIR . 'includes/cpt.php';
 require_once MLAC_PLUGIN_DIR . 'includes/taxonomy.php';
 require_once MLAC_PLUGIN_DIR . 'includes/meta-boxes.php';
 require_once MLAC_PLUGIN_DIR . 'includes/shortcode.php';
-include_once plugin_dir_path(__FILE__) . 'includes/menu-api-minimal.php';
+
 
 // Admin‐only styles (meta boxes, etc.)
 function mlac_enqueue_admin_styles() {
@@ -70,3 +70,6 @@ add_action( 'admin_head', 'mlac_custom_editor_styles' );
 
 // Force JPEG uploads at 100% quality
 add_filter( 'jpeg_quality', function() { return 100; } );
+
+
+ include_once plugin_dir_path(__FILE__) . 'includes/menu-api-minimal.php';

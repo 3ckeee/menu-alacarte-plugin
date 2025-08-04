@@ -1,7 +1,6 @@
 <?php
 
-// Prevent direct access
-     if (!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
          exit;
      }
 
@@ -264,5 +263,6 @@
 
          return rest_ensure_response($debug_info);
      }
+
 
      ?>
