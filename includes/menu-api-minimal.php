@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('ABSPATH')) {
+     if (!defined('ABSPATH')) {
          exit;
      }
 
@@ -25,8 +25,9 @@ if (!defined('ABSPATH')) {
      // Add meta fields to REST API responses (doesn't change your admin interface)
      add_action('rest_api_init', 'menu_alacarte_minimal_meta_fields');
      function menu_alacarte_minimal_meta_fields() {
-         // Register meta fields that might exist in your current setup
+         // Register meta fields that might exist in your current setup (including actual _mlac_ prefixed fields)
          $possible_meta_fields = [
+             '_mlac_dish_name_sk', '_mlac_dish_name_en', '_mlac_measurement', '_mlac_measurement_value', '_mlac_price', '_mlac_allergens',
              'dish_name_slovak', 'dish_name_sk', 'name_slovak', 'name_sk', 'slovak_name',
              'dish_name_english', 'dish_name_en', 'name_english', 'name_en', 'english_name',
              'measurement_type', 'measurement', 'portion', 'weight_type',
@@ -123,8 +124,9 @@ if (!defined('ABSPATH')) {
              // Get ALL meta data for debugging
              $all_meta = get_post_meta($item->ID);
 
-             // Try different possible field name variations
+             // Try different possible field name variations (including your actual _mlac_ prefixed fields)
              $possible_names = array(
+                 '_mlac_dish_name_sk', '_mlac_dish_name_en', '_mlac_measurement', '_mlac_measurement_value', '_mlac_price', '_mlac_allergens',
                  'dish_name_slovak', 'dish_name_sk', 'name_slovak', 'name_sk', 'slovak_name',
                  'dish_name_english', 'dish_name_en', 'name_english', 'name_en', 'english_name',
                  'measurement_type', 'measurement', 'portion', 'weight_type',
@@ -148,13 +150,17 @@ if (!defined('ABSPATH')) {
                  'featured_image_url' => get_the_post_thumbnail_url($item->ID, 'medium'),
                  'menu_categories' => $category_ids,
 
-                 // Standard expected fields
-                 'dish_name_slovak' => get_post_meta($item->ID, 'dish_name_slovak', true),
-                 'dish_name_english' => get_post_meta($item->ID, 'dish_name_english', true),
-                 'measurement_type' => get_post_meta($item->ID, 'measurement_type', true),
-                 'measurement_value' => get_post_meta($item->ID, 'measurement_value', true),
-                 'price' => get_post_meta($item->ID, 'price', true),
-                 'allergens' => get_post_meta($item->ID, 'allergens', true),
+                 // Standard expected fields (using your actual _mlac_ prefixed field names)
+                 'dish_name_slovak' => get_post_meta($item->ID, '_mlac_dish_name_sk', true) ?: '',
+                 'dish_name_english' => get_post_meta($item->ID, '_mlac_dish_name_en', true) ?: '',
+                 'measurement_type' => get_post_meta($item->ID, '_mlac_measurement', true) ?: '',
+                 'measurement_value' => get_post_meta($item->ID, '_mlac_measurement_value', true) ?: '',
+                 'price' => get_post_meta($item->ID, '_mlac_price', true) ?: '',
+                 'allergens' => get_post_meta($item->ID, '_mlac_allergens', true) ?: '',
+
+                 // Fallback: try without prefix if _mlac_ fields are empty
+                 'dish_name_slovak_fallback' => get_post_meta($item->ID, 'dish_name_slovak', true) ?: '',
+                 'dish_name_english_fallback' => get_post_meta($item->ID, 'dish_name_english', true) ?: '',
 
                  // Debug information
                  'debug_all_meta_keys' => array_keys($all_meta),
