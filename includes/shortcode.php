@@ -74,7 +74,7 @@ function mlac_print_term_panel( $term, $atts ) {
                         // German name
                         $dish_name_de = get_post_meta( get_the_ID(), '_mlac_dish_name_de', true );
                         if ( $dish_name_de ) {
-                            echo '<p class="dish-name-de" style="font-size:0.9em; color:#bbb;">'
+                            echo '<p class="dish-name-de" style="color:#bbb;">'
                                  . esc_html( $dish_name_de ) . '</p>';
                         }
 

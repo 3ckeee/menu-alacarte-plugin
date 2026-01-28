@@ -156,7 +156,8 @@
 
 /* Optional dish names */
 .dish-name-sk,
-.dish-name-en {
+.dish-name-en,
+.dish-name-de {
     font-family: 'Cormorant Garamond', serif !important;
     font-style: italic !important;
     font-weight: 400 !important;
