@@ -3,8 +3,8 @@
 Plugin Name: Menu À la Carte Plugin
 Plugin URI: https://diverzitystudios.sk
 Description: A plugin to manage à la carte menus via a custom post type with a fill-out form and custom taxonomy.
-Version: 0.9.9
-Author: Erik Kokinda
+Version: 1.0.0
+Author: Erik Kokinda - DiverzityStudios.sk
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
