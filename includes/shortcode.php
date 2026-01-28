@@ -71,6 +71,13 @@ function mlac_print_term_panel( $term, $atts ) {
                                  . esc_html( $dish_name_en ) . '</p>';
                         }
 
+                        // German name
+                        $dish_name_de = get_post_meta( get_the_ID(), '_mlac_dish_name_de', true );
+                        if ( $dish_name_de ) {
+                            echo '<p class="dish-name-de" style="font-size:0.9em;">'
+                                 . esc_html( $dish_name_de ) . '</p>';
+                        }
+
                         // Measurement (type + value)
                         $measurement_type  = get_post_meta( get_the_ID(), '_mlac_measurement', true );
                         $measurement_value = get_post_meta( get_the_ID(), '_mlac_measurement_value', true );

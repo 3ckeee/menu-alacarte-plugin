@@ -27,9 +27,10 @@
      function menu_alacarte_minimal_meta_fields() {
          // Register meta fields that might exist in your current setup (including actual _mlac_ prefixed fields)
          $possible_meta_fields = [
-             '_mlac_dish_name_sk', '_mlac_dish_name_en', '_mlac_measurement', '_mlac_measurement_value', '_mlac_price', '_mlac_allergens',
+             '_mlac_dish_name_sk', '_mlac_dish_name_en', '_mlac_dish_name_de', '_mlac_measurement', '_mlac_measurement_value', '_mlac_price', '_mlac_allergens',
              'dish_name_slovak', 'dish_name_sk', 'name_slovak', 'name_sk', 'slovak_name',
              'dish_name_english', 'dish_name_en', 'name_english', 'name_en', 'english_name',
+             'dish_name_german', 'dish_name_de', 'name_german', 'name_de', 'german_name',
              'measurement_type', 'measurement', 'portion', 'weight_type',
              'measurement_value', 'weight', 'portion_size', 'weight_value', 'size',
              'price', 'cost', 'price_value',
@@ -55,7 +56,7 @@
              'get_callback' => function($post) {
                  $image_id = get_post_thumbnail_id($post['id']);
                  if ($image_id) {
-                     return wp_get_attachment_image_url($image_id, 'medium');
+                     return wp_get_attachment_image_url($image_id, 'full');
                  }
                  return null;
              },
@@ -126,9 +127,10 @@
 
              // Try different possible field name variations (including your actual _mlac_ prefixed fields)
              $possible_names = array(
-                 '_mlac_dish_name_sk', '_mlac_dish_name_en', '_mlac_measurement', '_mlac_measurement_value', '_mlac_price', '_mlac_allergens',
+                 '_mlac_dish_name_sk', '_mlac_dish_name_en', '_mlac_dish_name_de', '_mlac_measurement', '_mlac_measurement_value', '_mlac_price', '_mlac_allergens',
                  'dish_name_slovak', 'dish_name_sk', 'name_slovak', 'name_sk', 'slovak_name',
                  'dish_name_english', 'dish_name_en', 'name_english', 'name_en', 'english_name',
+                 'dish_name_german', 'dish_name_de', 'name_german', 'name_de', 'german_name',
                  'measurement_type', 'measurement', 'portion', 'weight_type',
                  'measurement_value', 'weight', 'portion_size', 'weight_value', 'size',
                  'price', 'cost', 'price_value',
@@ -147,12 +149,13 @@
                  'id' => $item->ID,
                  'title' => array('rendered' => $item->post_title),
                  'content' => array('rendered' => apply_filters('the_content', $item->post_content)),
-                 'featured_image_url' => get_the_post_thumbnail_url($item->ID, 'medium'),
+                 'featured_image_url' => get_the_post_thumbnail_url($item->ID, 'full'),
                  'menu_categories' => $category_ids,
 
                  // Standard expected fields (using your actual _mlac_ prefixed field names)
                  'dish_name_slovak' => get_post_meta($item->ID, '_mlac_dish_name_sk', true) ?: '',
                  'dish_name_english' => get_post_meta($item->ID, '_mlac_dish_name_en', true) ?: '',
+                 'dish_name_german' => get_post_meta($item->ID, '_mlac_dish_name_de', true) ?: '',
                  'measurement_type' => get_post_meta($item->ID, '_mlac_measurement', true) ?: '',
                  'measurement_value' => get_post_meta($item->ID, '_mlac_measurement_value', true) ?: '',
                  'price' => get_post_meta($item->ID, '_mlac_price', true) ?: '',

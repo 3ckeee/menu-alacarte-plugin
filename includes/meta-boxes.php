@@ -27,6 +27,7 @@ function mlac_render_menu_meta_box( $post ) {
     // Retrieve existing meta data.
     $dish_name_sk       = get_post_meta( $post->ID, '_mlac_dish_name_sk', true );
     $dish_name_en       = get_post_meta( $post->ID, '_mlac_dish_name_en', true );
+    $dish_name_de       = get_post_meta( $post->ID, '_mlac_dish_name_de', true );
     $measurement        = get_post_meta( $post->ID, '_mlac_measurement', true );
     $measurement_value  = get_post_meta( $post->ID, '_mlac_measurement_value', true );
     $price              = get_post_meta( $post->ID, '_mlac_price', true );
@@ -39,6 +40,10 @@ function mlac_render_menu_meta_box( $post ) {
     <p>
         <label for="mlac_dish_name_en"><strong>Názov (EN):</strong></label><br />
         <input type="text" id="mlac_dish_name_en" name="mlac_dish_name_en" value="<?php echo esc_attr( $dish_name_en ); ?>" placeholder="Enter English dish name (optional)" style="width:100%;" />
+    </p>
+    <p>
+        <label for="mlac_dish_name_de"><strong>Názov (DE):</strong></label><br />
+        <input type="text" id="mlac_dish_name_de" name="mlac_dish_name_de" value="<?php echo esc_attr( $dish_name_de ); ?>" placeholder="Enter German dish name (optional)" style="width:100%;" />
     </p>
     <p>
         <label for="mlac_measurement"><strong>Meranie (Váha/Objem/Množstvo):</strong></label><br />
@@ -82,6 +87,7 @@ function mlac_save_menu_meta_box_data( $post_id ) {
     $fields = array(
         'mlac_dish_name_sk'       => '_mlac_dish_name_sk',
         'mlac_dish_name_en'       => '_mlac_dish_name_en',
+        'mlac_dish_name_de'       => '_mlac_dish_name_de',
         'mlac_measurement'        => '_mlac_measurement',
         'mlac_measurement_value'  => '_mlac_measurement_value',
         'mlac_price'              => '_mlac_price',
