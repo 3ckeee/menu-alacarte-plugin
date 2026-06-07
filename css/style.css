@@ -1,285 +1,287 @@
-@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+/* =====================================================================
+   Menu à la carte — InFlagranti luxury styling
+   Self-contained: inherits the active theme's design tokens when present,
+   with brand fallbacks so it still looks right on its own.
+   ===================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-/* ----- Desktop Styles ----- */
-
-/* Overall plugin container */
 .menu-alacarte-container {
-    width: 90% !important;
-    max-width: 1200px !important;
-    margin: 0 auto;
-    padding: 20px !important;
-    background-color: #000 !important;
+	--mlac-gold: var(--gold, #b8a75d);
+	--mlac-gold-soft: var(--gold-soft, #d4c58a);
+	--mlac-bg: var(--bg, #0a0a0a);
+	--mlac-surface: var(--surface, #141414);
+	--mlac-text: var(--text, #f4f1ea);
+	--mlac-muted: var(--text-muted, #a7a39a);
+	--mlac-line: rgba(255, 255, 255, 0.09);
+	--mlac-line-gold: rgba(184, 167, 93, 0.22);
+	--mlac-glass: rgba(22, 22, 22, 0.55);
+	--mlac-glass-border: rgba(255, 255, 255, 0.10);
+	--mlac-head: var(--font-head, 'Playfair Display', Georgia, 'Times New Roman', serif);
+	--mlac-body: var(--font-body, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+	--mlac-radius: 22px;
+	--mlac-pill: 999px;
+	--mlac-grad: linear-gradient(135deg, var(--mlac-gold-soft) 0%, var(--mlac-gold) 55%, #8a7a3c 100%);
+
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0;
+	background: transparent;
+	font-family: var(--mlac-body);
+	color: var(--mlac-text);
 }
 
-/* Navigation for menu categories */
+/* ----- Category navigation → gold pill tabs ----- */
 .menu-category-nav {
-    list-style: none !important;
-    margin: 20px 0 !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 20px !important;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.6rem;
+	margin: 0 0 3rem;
+	padding: 0;
 }
-.menu-category-nav li {
-    margin: 5px 0 !important;
-    flex: 0 0 auto !important;
-    position: relative; /* Required for submenus */
-}
+.menu-category-nav li { margin: 0; position: relative; flex: 0 0 auto; }
 .menu-category-nav a {
-    white-space: nowrap !important;
-    text-decoration: none !important;
-    padding: 12px 24px !important;
-    background: #4a4a4a !important;
-    color: #B8A75D !important;
-    border-radius: 3px !important;
-    transition: background 0.3s !important;
-    font-family: 'Spectral', serif !important;
-    font-style: normal !important;
-    font-weight: 300 !important;
+	display: inline-block;
+	white-space: nowrap;
+	text-decoration: none;
+	padding: 0.6em 1.3em;
+	background: rgba(255, 255, 255, 0.03);
+	color: var(--mlac-muted);
+	border: 1px solid var(--mlac-line);
+	border-radius: var(--mlac-pill);
+	font-family: var(--mlac-body);
+	font-size: 0.82rem;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 .menu-category-nav a:hover,
 .menu-category-nav a.active {
-    background: #B8A75D !important;
-    color: #fff !important;
+	background: var(--mlac-grad);
+	color: #1a1408;
+	border-color: transparent;
+	transform: translateY(-2px);
 }
 
-/* ===== Submenu Styling ===== */
-/* Hide all nested .sub-menu by default */
+/* Submenus */
 .menu-category-nav .sub-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    background: #4a4a4a;
-    border-radius: 3px;
-    white-space: nowrap;
-    z-index: 99;
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	min-width: 220px;
+	margin: 0.5rem 0 0;
+	padding: 0.4rem;
+	list-style: none;
+	background: rgba(15, 15, 15, 0.97);
+	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: blur(14px);
+	border: 1px solid var(--mlac-line);
+	border-radius: 14px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+	white-space: nowrap;
+	z-index: 99;
 }
-.menu-category-nav .sub-menu li {
-    width: 100%;
-}
+.menu-category-nav li:hover > .sub-menu { display: block; }
+.menu-category-nav .sub-menu li { width: 100%; }
 .menu-category-nav .sub-menu li a {
-    display: block;
-    padding: 8px 16px;
-    color: #B8A75D;
-    text-decoration: none;
-    font-family: 'Spectral', serif;
-    font-weight: 300;
-    font-size: 0.9em;
-    transition: background 0.2s;
+	display: block;
+	padding: 0.6rem 0.9rem;
+	border: none;
+	background: transparent;
+	color: var(--mlac-muted);
+	text-transform: none;
+	letter-spacing: 0.02em;
+	border-radius: 8px;
 }
-.menu-category-nav .sub-menu li a:hover {
-    background: #B8A75D;
-    color: #fff;
-}
-/* Show submenu on hover */
-.menu-category-nav li:hover > .sub-menu {
-    display: block;
-}
-/* Sub‐submenus appear to the right */
-.menu-category-nav .sub-menu .sub-menu {
-    top: 0;
-    left: 100%;
-}
+.menu-category-nav .sub-menu li a:hover { background: var(--mlac-grad); color: #1a1408; transform: none; }
+.menu-category-nav .sub-menu .sub-menu { top: 0; left: 100%; }
 
-/* Category items */
+/* ----- Category panel → responsive grid of dish cards ----- */
 .menu-category-items {
-    display: none !important;
-    position: relative !important;
+	display: none;
+	grid-template-columns: repeat(auto-fill, minmax(min(440px, 100%), 1fr));
+	gap: clamp(1rem, 2vw, 1.6rem);
+	align-items: stretch;
 }
-.menu-category-items.active {
-    display: block !important;
-}
+/* Active panel (class set by JS; inline display:block set on first render/fade). */
+.menu-category-items.active,
+.menu-category-items[style*="block"] { display: grid !important; }
 
-/* Each dish (menu item) container */
+/* ----- Dish card ----- */
 .menu-alacarte-item {
-    padding: 10px !important;
-    border-bottom: 1px solid #ccc !important;
-    margin-bottom: 10px !important;
-    opacity: 1 !important;
+	background: var(--mlac-glass);
+	-webkit-backdrop-filter: blur(22px) saturate(140%);
+	backdrop-filter: blur(22px) saturate(140%);
+	border: 1px solid var(--mlac-glass-border);
+	border-radius: var(--mlac-radius);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.menu-alacarte-item:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45), 0 20px 50px rgba(184, 167, 93, 0.16);
 }
 
-/* Alternating backgrounds */
-.menu-alacarte-container .menu-alacarte-item:nth-child(odd) {
-    background-color: #000 !important;
+/* Staggered entrance when a category panel becomes visible (and on switch).
+   Keyed off the visible panel's inline display:block, so cards start hidden
+   only inside a shown panel — no flash, no permanent-hide risk. */
+.menu-category-items[style*="block"] .menu-alacarte-item {
+	animation: mlac-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.menu-alacarte-container .menu-alacarte-item:nth-child(even) {
-    background-color: #555 !important;
+.menu-category-items[style*="block"] .menu-alacarte-item:nth-child(2) { animation-delay: 0.07s; }
+.menu-category-items[style*="block"] .menu-alacarte-item:nth-child(3) { animation-delay: 0.14s; }
+.menu-category-items[style*="block"] .menu-alacarte-item:nth-child(4) { animation-delay: 0.21s; }
+.menu-category-items[style*="block"] .menu-alacarte-item:nth-child(5) { animation-delay: 0.28s; }
+.menu-category-items[style*="block"] .menu-alacarte-item:nth-child(6) { animation-delay: 0.35s; }
+.menu-category-items[style*="block"] .menu-alacarte-item:nth-child(n+7) { animation-delay: 0.42s; }
+@keyframes mlac-rise {
+	from { opacity: 0; transform: translateY(26px); }
+	to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.menu-category-items[style*="block"] .menu-alacarte-item { animation: none; }
 }
 
-/* Flex container for each dish */
 .dish-container {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 20px !important;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 100%;
+	gap: 0;
 }
-/* Odd: image on right; Even: image on left */
-.menu-alacarte-item:nth-child(odd) .dish-container {
-    flex-direction: row-reverse !important;
-}
-.menu-alacarte-item:nth-child(even) .dish-container {
-    flex-direction: row !important;
-}
-
-/* Dish illustration container (Desktop) */
 .dish-illustration {
-    width: 500px !important;
-    height: 500px !important;
-    flex-shrink: 0 !important;
-    overflow: hidden !important;
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
 }
 .dish-illustration img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.menu-alacarte-item:hover .dish-illustration img { transform: scale(1.06); }
 
-/* Dish details container (Desktop) */
 .dish-details {
-    flex: 1 1 auto !important;
-    width: auto !important;
-    min-width: 0 !important;
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: clamp(1.4rem, 2.5vw, 2rem);
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
 }
 
-/* Text styling for dish title */
+/* Dish title (main / Italian name) */
 .menu-alacarte-item h3 {
-    font-family: 'Spectral', serif !important;
-    font-style: normal !important;
-    font-weight: 400 !important;
-    color: #B8A75D !important;
+	font-family: var(--mlac-head);
+	font-weight: 600;
+	font-size: 1.5rem;
+	line-height: 1.2;
+	color: var(--mlac-gold);
+	margin: 0 0 0.1rem;
 }
 
-/* Optional dish names */
-.dish-name-sk,
+/* Localized names */
+.dish-name-sk {
+	font-family: var(--mlac-head);
+	font-style: italic;
+	font-size: 1.05rem;
+	color: var(--mlac-text);
+	margin: 0;
+}
 .dish-name-en,
 .dish-name-de {
-    font-family: 'Cormorant Garamond', serif !important;
-    font-style: italic !important;
-    font-weight: 400 !important;
-    font-size: 1.2em !important;
+	font-style: italic;
+	font-size: 0.88rem;
+	color: var(--mlac-muted);
+	margin: 0;
 }
 
-/* Details (measurement, price, allergens) */
-.menu-alacarte-item .menu-details {
-    font-family: 'Cormorant Garamond', serif !important;
-    font-style: italic !important;
-    font-weight: 300 !important;
-    color: #B8A75D !important;
-    font-size: 1.2em !important;
+/* Meta (weight, allergens) */
+.menu-details {
+	font-family: var(--mlac-body);
+	font-size: 0.85rem;
+	color: var(--mlac-muted);
+	letter-spacing: 0.02em;
+	margin: 0.1rem 0 0;
+}
+.menu-details strong { color: var(--mlac-gold-soft); font-weight: 600; }
+.dish-details .menu-details:first-of-type {
+	margin-top: 0.8rem;
+	padding-top: 0.8rem;
+	border-top: 1px solid var(--mlac-line);
+}
+.dish-allergens { font-size: 0.78rem; opacity: 0.85; }
+
+/* Prominent gold price figure */
+.dish-price {
+	font-family: var(--mlac-head);
+	font-size: 1.6rem;
+	font-weight: 600;
+	color: var(--mlac-gold-soft);
+	margin: 0.5rem 0 0;
+	letter-spacing: 0.01em;
 }
 
-/* Allergens button */
+.menu-description {
+	color: var(--mlac-muted);
+	font-size: 0.95rem;
+	line-height: 1.65;
+	margin-top: 0.7rem;
+}
+.menu-description p { margin: 0 0 0.6em; }
+
+/* ----- Allergen legend ----- */
 .allergens-button {
-    white-space: nowrap !important;
-    text-decoration: none !important;
-    padding: 10px 20px !important;
-    background: #4a4a4a !important;
-    color: #B8A75D !important;
-    border: none !important;
-    border-radius: 3px !important;
-    cursor: pointer !important;
-    transition: background 0.3s !important;
-    margin-top: 10px !important;
+	grid-column: 1 / -1;
+	justify-self: center;
+	margin-top: 1.6rem;
+	white-space: nowrap;
+	padding: 0.6em 1.3em;
+	background: rgba(255, 255, 255, 0.03);
+	color: var(--mlac-gold);
+	border: 1px solid var(--mlac-line-gold);
+	border-radius: var(--mlac-pill);
+	cursor: pointer;
+	font-family: var(--mlac-body);
+	font-size: 0.8rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
-.allergens-button:hover {
-    background: #B8A75D !important;
-    color: #fff !important;
-}
+.allergens-button:hover { background: var(--mlac-grad); color: #1a1408; border-color: transparent; }
 .allergens-list {
-    display: none !important;
-    padding: 10px !important;
-    background: #555 !important;
-    color: #B8A75D !important;
-    margin-top: 5px !important;
-    border-radius: 3px !important;
+	display: none;
+	grid-column: 1 / -1;
+	margin-top: 1rem;
+	padding: 1.4rem 1.8rem;
+	background: var(--mlac-glass);
+	-webkit-backdrop-filter: blur(22px);
+	backdrop-filter: blur(22px);
+	border: 1px solid var(--mlac-glass-border);
+	border-radius: 14px;
+	color: var(--mlac-muted);
+	columns: 2;
+	column-gap: 2.5rem;
 }
+.allergens-list p { margin: 0.25rem 0; font-size: 0.88rem; break-inside: avoid; }
+.allergens-list p strong { color: var(--mlac-gold-soft); }
 
-/* ----- Mobile Overrides (max-width: 768px) ----- */
-@media only screen and (max-width: 768px) {
-    /* Full‐width each item */
-    .menu-alacarte-item {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 10px !important;
-    }
-
-    /* Stack dish container vertically */
-    .menu-alacarte-item .dish-container {
-        display: block !important;
-    }
-
-    /* Full-width dish illustration & details */
-    .menu-alacarte-item .dish-illustration,
-    .menu-alacarte-item .dish-details {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto 20px auto !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Responsive images */
-    .menu-alacarte-item .dish-illustration img {
-        width: 100% !important;
-        height: auto !important;
-        object-fit: contain !important;
-    }
+/* ----- Mobile ----- */
+@media only screen and (max-width: 600px) {
+	.allergens-list { columns: 1; }
 }
-
-/* ===== Submenu Styling ===== */
-/* Hide all nested .sub-menu by default */
-.menu-category-nav .sub-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    background: #4a4a4a;
-    border-radius: 3px;
-    white-space: nowrap;
-    z-index: 99;
-}
-.menu-category-nav .sub-menu li {
-    width: 100%;
-}
-.menu-category-nav .sub-menu li a {
-    display: block;
-    padding: 8px 16px;
-    color: #B8A75D;
-    text-decoration: none;
-    font-family: 'Spectral', serif;
-    font-weight: 300;
-    font-size: 0.9em;
-    transition: background 0.2s;
-}
-.menu-category-nav .sub-menu li a:hover {
-    background: #B8A75D;
-    color: #fff;
-}
-/* Show submenu on hover */
-.menu-category-nav li:hover > .sub-menu {
-    display: block;
-}
-
-/* Submenu of submenu (sub‐submenus) */
-/* On desktop, open to the right */
-.menu-category-nav .sub-menu .sub-menu {
-    top: 0;
-    left: 100%;
-}
-
-/* On mobile (≤768px), open sub‐submenus to the left */
-@media only screen and (max-width: 768px) {
-    .menu-category-nav .sub-menu .sub-menu {
-        left: auto;
-        right: 100%;
-    }
+@media (prefers-reduced-motion: reduce) {
+	.menu-alacarte-item,
+	.dish-illustration img { transition: none; }
+	.menu-alacarte-item:hover { transform: none; }
+	.menu-alacarte-item:hover .dish-illustration img { transform: none; }
 }

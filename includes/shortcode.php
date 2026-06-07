@@ -60,22 +60,19 @@ function mlac_print_term_panel( $term, $atts ) {
                         // Slovak name
                         $dish_name_sk = get_post_meta( get_the_ID(), '_mlac_dish_name_sk', true );
                         if ( $dish_name_sk ) {
-                            echo '<p class="dish-name-sk" style="font-size:0.95em; color:#ccc;">'
-                                 . esc_html( $dish_name_sk ) . '</p>';
+                            echo '<p class="dish-name-sk">' . esc_html( $dish_name_sk ) . '</p>';
                         }
 
                         // English name
                         $dish_name_en = get_post_meta( get_the_ID(), '_mlac_dish_name_en', true );
                         if ( $dish_name_en ) {
-                            echo '<p class="dish-name-en" style="font-size:0.9em;">'
-                                 . esc_html( $dish_name_en ) . '</p>';
+                            echo '<p class="dish-name-en">' . esc_html( $dish_name_en ) . '</p>';
                         }
 
                         // German name
                         $dish_name_de = get_post_meta( get_the_ID(), '_mlac_dish_name_de', true );
                         if ( $dish_name_de ) {
-                            echo '<p class="dish-name-de" style="color:#bbb;">'
-                                 . esc_html( $dish_name_de ) . '</p>';
+                            echo '<p class="dish-name-de">' . esc_html( $dish_name_de ) . '</p>';
                         }
 
                         // Measurement (type + value)
@@ -87,17 +84,17 @@ function mlac_print_term_panel( $term, $atts ) {
                                  . esc_html( $measurement_value ) . '</p>';
                         }
 
-                        // Price
-                        $price = get_post_meta( get_the_ID(), '_mlac_price', true );
-                        if ( $price ) {
-                            echo '<p class="menu-details"><strong>Cena:</strong> ' . esc_html( $price ) . '</p>';
-                        }
-
                         // Dish‐specific allergens
                         $allergens = get_post_meta( get_the_ID(), '_mlac_allergens', true );
                         if ( $allergens ) {
-                            echo '<p class="menu-details" style="font-size:0.8em;"><strong>Alergény:</strong> '
+                            echo '<p class="menu-details dish-allergens"><strong>Alergény:</strong> '
                                  . esc_html( $allergens ) . '</p>';
+                        }
+
+                        // Price — prominent gold figure
+                        $price = get_post_meta( get_the_ID(), '_mlac_price', true );
+                        if ( $price ) {
+                            echo '<p class="dish-price">' . esc_html( $price ) . '</p>';
                         }
 
                         // Description / content

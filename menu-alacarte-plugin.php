@@ -31,8 +31,11 @@ add_action( 'admin_enqueue_scripts', 'mlac_enqueue_admin_styles' );
 
 // Front‐end CSS & JS
 function mlac_enqueue_scripts() {
+    // Version assets by file modification time so style/markup edits always
+    // bust the cache (a fixed version left stale CSS being served).
+    $css_ver = file_exists( MLAC_PLUGIN_DIR . 'css/style.css' ) ? filemtime( MLAC_PLUGIN_DIR . 'css/style.css' ) : '0.9.9';
     // Main front‐end CSS
-    wp_enqueue_style( 'mlac-style', MLAC_PLUGIN_URL . 'css/style.css', array(), '0.9.9' );
+    wp_enqueue_style( 'mlac-style', MLAC_PLUGIN_URL . 'css/style.css', array(), $css_ver );
     // Category / submenu animation
     wp_enqueue_script( 'mlac-category-animation', MLAC_PLUGIN_URL . 'js/category-animation.js', array( 'jquery' ), '0.9.9', true );
     // Allergens toggle
